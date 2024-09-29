@@ -1,0 +1,63 @@
+.. Polygenic Risk Score Tools documentation master file, created by
+   sphinx-quickstart on Fri Aug 23 16:11:57 2024.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Polygenic Risk Score Tools's documentation!
+======================================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   Step1-DownloadSampleDataandSetupEnvironment
+   Step2-GWASAndIndividualGenotypeDataQualityControls
+   NotebooksWorkflow
+   Plink
+   PRSice-2
+   DBSLMM
+   GCTA
+   Lassosum
+   LDpred-2-Inf
+   LDpred-2-Grid
+   LDpred-2-Auto
+   LDpred-2-Lassosum
+   LDpred-funct-code
+   GCTB-SBayesR
+   GCTB-SBayesRC
+   LDAK-GenotypeData
+   LDAK-GWAS
+   PRScs
+   PRScsx
+   tlpSum
+   PRSbils
+   CTPR
+   NPS
+   SDPR
+   JAMPred
+   EBPRS
+   PANPRS
+   BOLT-LMM
+   RapidoPGS-single
+   LDpred-gibbs
+   LDpred-fast
+   LDpred-p+t
+   LDpred-inf
+   AnnoPredCode
+   smtpred-wMtOLS
+   smtpred-wMtSBLUP
+   C+T
+   viprs-simple
+   viprs-grid
+   HAIL
+   GEMMA-LM
+   GEMMA-LMM
+   GEMMA-BSLMM
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
