@@ -44,8 +44,9 @@ Welcome to Polygenic Risk Score Tools's documentation!
    LDpred-p+t
    LDpred-inf
    AnnoPredCode
-   smtpred-wMtOLS
-   smtpred-wMtSBLUP
+   PleioPredCode
+   smtpredwMtOLS
+   smtpredwMtSBLUP
    C+T
    viprs-simple
    viprs-grid
@@ -53,7 +54,11 @@ Welcome to Polygenic Risk Score Tools's documentation!
    GEMMA-LM
    GEMMA-LMM
    GEMMA-BSLMM
-
+   MTG2
+   SCT
+   XPBLUP
+   CTSLEB
+   PolyPred
 
 Indices and tables
 ==================
