@@ -6,6 +6,8 @@ git commit -m "Added new files or made changes"
 git push -u origin main
 
 git push origin main --force
+
+   Introduction
    Step1-DownloadSampleDataandSetupEnvironment
    Step2-GWASAndIndividualGenotypeDataQualityControls
    NotebooksWorkflow
