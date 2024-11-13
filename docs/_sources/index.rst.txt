@@ -9,8 +9,11 @@ Welcome to Polygenic Risk Score Tools's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   Introduction
    Step1-DownloadSampleDataandSetupEnvironment
    Step2-GWASAndIndividualGenotypeDataQualityControls
+   NotebooksWorkflow
    Plink
    PRSice-2
    DBSLMM
