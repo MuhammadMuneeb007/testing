@@ -20,9 +20,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LDAK-GWAS" href="LDAK-GWAS.html" />
-    <link rel="prev" title="GCTB-SBayesRC" href="GCTB-SBayesRC.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,87 +42,45 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Step1-DownloadSampleDataandSetupEnvironment.html">Step1-DownloadSampleDataandSetupEnvironment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Step2-GWASAndIndividualGenotypeDataQualityControls.html">Step2-GWASAndIndividualGenotypeDataQualityControls</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NotebooksWorkflow.html">Polygenic Risk Score Tools Notebooks Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Plink.html">Plink</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRSice-2.html">PRSice-2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DBSLMM.html">DBSLMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTA.html">GCTA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lassosum.html">Lassosum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Inf.html">LDpred-2-Inf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Grid.html">LDpred-2-Grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Auto.html">LDpred-2-Auto</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Lassosum.html">LDpred-2-Lassosum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-funct-code.html">LDpred-funct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTB-SBayesR.html">GCTB: Calculating PRS with SBayesR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTB-SBayesRC.html">GCTB-SBayesRC</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LDAK-GenotypeData</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ldak-hyperparameters">LDAK Hyperparameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gwas-file-processing-for-ldak-for-binary-phenotypes">GWAS file processing for LDAK for Binary Phenotypes.</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#define-hyperparameters">Define Hyperparameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#extract-valid-snps-from-clumped-file">Extract Valid SNPs from Clumped File</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#execution-path">Execution Path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#p-values">P-values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#define-helper-functions">Define Helper Functions</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">LDAK-GenotypeData</a><ul>
+<li><a class="reference internal" href="#ldak-hyperparameters">LDAK Hyperparameters</a></li>
+<li><a class="reference internal" href="#gwas-file-processing-for-ldak-for-binary-phenotypes">GWAS file processing for LDAK for Binary Phenotypes.</a><ul>
+<li><a class="reference internal" href="#define-hyperparameters">Define Hyperparameters</a></li>
+<li><a class="reference internal" href="#extract-valid-snps-from-clumped-file">Extract Valid SNPs from Clumped File</a></li>
+<li><a class="reference internal" href="#execution-path">Execution Path</a></li>
+<li><a class="reference internal" href="#p-values">P-values</a></li>
+<li><a class="reference internal" href="#define-helper-functions">Define Helper Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#execute-ldak">Execute LDAK</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#check-the-results-file-for-each-fold">Check the results file for each fold.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#repeat-the-process-for-each-fold">Repeat the process for each fold.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sum-the-results-for-each-fold">Sum the results for each fold.</a></li>
+<li><a class="reference internal" href="#execute-ldak">Execute LDAK</a><ul>
+<li><a class="reference internal" href="#check-the-results-file-for-each-fold">Check the results file for each fold.</a></li>
+<li><a class="reference internal" href="#repeat-the-process-for-each-fold">Repeat the process for each fold.</a></li>
+<li><a class="reference internal" href="#sum-the-results-for-each-fold">Sum the results for each fold.</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#results">Results</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reporting-based-on-best-training-performance">1. <strong>Reporting Based on Best Training Performance:</strong></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#binary-phenotypes-result-analysis">Binary Phenotypes Result Analysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#continuous-phenotypes-result-analysis">Continuous Phenotypes Result Analysis</a></li>
+<li><a class="reference internal" href="#results">Results</a><ul>
+<li><a class="reference internal" href="#reporting-based-on-best-training-performance">1. <strong>Reporting Based on Best Training Performance:</strong></a><ul>
+<li><a class="reference internal" href="#binary-phenotypes-result-analysis">Binary Phenotypes Result Analysis</a><ul>
+<li><a class="reference internal" href="#recommendations-for-publishing-results">Recommendations for Publishing Results</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#reporting-generalized-performance">2. <strong>Reporting Generalized Performance:</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reporting-hyperparameters-affecting-test-and-train-performance">3. <strong>Reporting Hyperparameters Affecting Test and Train Performance:</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#other-analysis">4. Other Analysis</a></li>
+<li><a class="reference internal" href="#continuous-phenotypes-result-analysis">Continuous Phenotypes Result Analysis</a><ul>
+<li><a class="reference internal" href="#recommendations-for-publishing-results-1">Recommendations for Publishing Results</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="LDAK-GWAS.html">LDAK-GWAS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRScs.html">PRScs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRScsx.html">PRScsx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tlpSum.html">tlpSum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRSbils.html">PRSbils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CTPR.html">CTPR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NPS.html">NPS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SDPR.html">SDPR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="JAMPred.html">JAMPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EBPRS.html">EB-PRS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PANPRS.html">PANPRS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BOLT-LMM.html">BOLT-LMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RapidoPGS-single.html">RapidoPGS-single</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-gibbs.html">LDpred-gibbs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-fast.html">LDpred-fast</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-p%2Bt.html">LDpred-p+t</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-inf.html">LDpred-inf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AnnoPredCode.html">AnnoPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PleioPredCode.html">PleioPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="smtpredwMtOLS.html">smtpredwMtOLS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="smtpredwMtSBLUP.html">smtpredwMtSBLUP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="C%2BT.html">C+T</a></li>
-<li class="toctree-l1"><a class="reference internal" href="viprs-simple.html">VIPRS-simple</a></li>
-<li class="toctree-l1"><a class="reference internal" href="viprs-grid.html">VIPRS-grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="HAIL.html">HAIL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-LM.html">GEMMA-LM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-LMM.html">GEMMA-LMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-BSLMM.html">GEMMA-BSLMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MTG2.html">MTG2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SCT.html">SCT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="XPBLUP.html">XPBLUP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CTSLEB.html">CTSLEB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PolyPred.html">PolyPred</a></li>
+<li><a class="reference internal" href="#reporting-generalized-performance">2. <strong>Reporting Generalized Performance:</strong></a></li>
+<li><a class="reference internal" href="#reporting-hyperparameters-affecting-test-and-train-performance">3. <strong>Reporting Hyperparameters Affecting Test and Train Performance:</strong></a></li>
+<li><a class="reference internal" href="#other-analysis">4. Other Analysis</a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
+</div>
         </div>
       </div>
     </nav>
@@ -2071,10 +2027,7 @@ explored.</p></li>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="GCTB-SBayesRC.html" class="btn btn-neutral float-left" title="GCTB-SBayesRC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="LDAK-GWAS.html" class="btn btn-neutral float-right" title="LDAK-GWAS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

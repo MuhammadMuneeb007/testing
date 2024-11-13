@@ -20,9 +20,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Polygenic Risk Score Tools Notebooks Workflow" href="NotebooksWorkflow.html" />
-    <link rel="prev" title="Step1-DownloadSampleDataandSetupEnvironment" href="Step1-DownloadSampleDataandSetupEnvironment.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,82 +42,34 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Step1-DownloadSampleDataandSetupEnvironment.html">Step1-DownloadSampleDataandSetupEnvironment</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Step2-GWASAndIndividualGenotypeDataQualityControls</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#note-on-gwas-file">Note on GWAS File</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#genome-wide-association-study-gwas-base-data-quality-controls">Genome-Wide Association Study (GWAS) (Base Data) - Quality Controls</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#set-the-directory-where-the-files-are-located">Set the directory where the files are located</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Step2-GWASAndIndividualGenotypeDataQualityControls</a><ul>
+<li><a class="reference internal" href="#note-on-gwas-file">Note on GWAS File</a></li>
+<li><a class="reference internal" href="#genome-wide-association-study-gwas-base-data-quality-controls">Genome-Wide Association Study (GWAS) (Base Data) - Quality Controls</a><ul>
+<li><a class="reference internal" href="#set-the-directory-where-the-files-are-located">Set the directory where the files are located</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#match-variants-between-gwas-and-individual-genotype-data">Match Variants Between GWAS and Individual Genotype Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#steps-for-handling-rsids-in-gwas-and-genotype-data">Steps for Handling RSIDs in GWAS and Genotype Data</a></li>
+<li><a class="reference internal" href="#match-variants-between-gwas-and-individual-genotype-data">Match Variants Between GWAS and Individual Genotype Data</a><ul>
+<li><a class="reference internal" href="#steps-for-handling-rsids-in-gwas-and-genotype-data">Steps for Handling RSIDs in GWAS and Genotype Data</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#individual-genotype-data-target-data-processing">Individual genotype data (Target Data) Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#remove-people-with-missing-phenotype">Remove people with missing Phenotype</a></li>
+<li><a class="reference internal" href="#individual-genotype-data-target-data-processing">Individual genotype data (Target Data) Processing</a><ul>
+<li><a class="reference internal" href="#remove-people-with-missing-phenotype">Remove people with missing Phenotype</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#split-data-into-test-and-train-and-perform-quality-controls-on-training-data">Split Data into Test and Train and Perform Quality Controls on Training Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pruning">Pruning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cross-validation-designs">Cross-validation Designs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#a-simple-analysis">A Simple Analysis</a></li>
+<li><a class="reference internal" href="#split-data-into-test-and-train-and-perform-quality-controls-on-training-data">Split Data into Test and Train and Perform Quality Controls on Training Data</a><ul>
+<li><a class="reference internal" href="#pruning">Pruning</a></li>
+<li><a class="reference internal" href="#cross-validation-designs">Cross-validation Designs</a></li>
+<li><a class="reference internal" href="#a-simple-analysis">A Simple Analysis</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#check-final-files">Check final files.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#important-note">Important Note</a></li>
+<li><a class="reference internal" href="#check-final-files">Check final files.</a></li>
+<li><a class="reference internal" href="#important-note">Important Note</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="NotebooksWorkflow.html">Polygenic Risk Score Tools Notebooks Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Plink.html">Plink</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRSice-2.html">PRSice-2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DBSLMM.html">DBSLMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTA.html">GCTA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lassosum.html">Lassosum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Inf.html">LDpred-2-Inf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Grid.html">LDpred-2-Grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Auto.html">LDpred-2-Auto</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-2-Lassosum.html">LDpred-2-Lassosum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-funct-code.html">LDpred-funct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTB-SBayesR.html">GCTB: Calculating PRS with SBayesR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCTB-SBayesRC.html">GCTB-SBayesRC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDAK-GenotypeData.html">LDAK-GenotypeData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDAK-GWAS.html">LDAK-GWAS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRScs.html">PRScs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRScsx.html">PRScsx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tlpSum.html">tlpSum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PRSbils.html">PRSbils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CTPR.html">CTPR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NPS.html">NPS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SDPR.html">SDPR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="JAMPred.html">JAMPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EBPRS.html">EB-PRS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PANPRS.html">PANPRS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BOLT-LMM.html">BOLT-LMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RapidoPGS-single.html">RapidoPGS-single</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-gibbs.html">LDpred-gibbs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-fast.html">LDpred-fast</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-p%2Bt.html">LDpred-p+t</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDpred-inf.html">LDpred-inf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AnnoPredCode.html">AnnoPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PleioPredCode.html">PleioPred</a></li>
-<li class="toctree-l1"><a class="reference internal" href="smtpredwMtOLS.html">smtpredwMtOLS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="smtpredwMtSBLUP.html">smtpredwMtSBLUP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="C%2BT.html">C+T</a></li>
-<li class="toctree-l1"><a class="reference internal" href="viprs-simple.html">VIPRS-simple</a></li>
-<li class="toctree-l1"><a class="reference internal" href="viprs-grid.html">VIPRS-grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="HAIL.html">HAIL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-LM.html">GEMMA-LM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-LMM.html">GEMMA-LMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GEMMA-BSLMM.html">GEMMA-BSLMM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MTG2.html">MTG2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SCT.html">SCT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="XPBLUP.html">XPBLUP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CTSLEB.html">CTSLEB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PolyPred.html">PolyPred</a></li>
 </ul>
-
+</div>
         </div>
       </div>
     </nav>
@@ -2099,10 +2049,7 @@ not produce any errors.</p></li>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Step1-DownloadSampleDataandSetupEnvironment.html" class="btn btn-neutral float-left" title="Step1-DownloadSampleDataandSetupEnvironment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="NotebooksWorkflow.html" class="btn btn-neutral float-right" title="Polygenic Risk Score Tools Notebooks Workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

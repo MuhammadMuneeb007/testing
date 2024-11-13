@@ -1,0 +1,3157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRSTools &mdash; Polygenic Risk Score Tools 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Polygenic Risk Score Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">PRSTools</a><ul>
+<li><a class="reference internal" href="#background">Background</a><ul>
+<li><a class="reference internal" href="#key-challenges">Key Challenges</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#repository-overview">Repository Overview</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a class="reference internal" href="#prs-tools-included-in-the-analysis">PRS Tools Included in the Analysis.</a></li>
+<li><a class="reference internal" href="#results">Results</a></li>
+<li><a class="reference internal" href="#related-projects">Related Projects.</a></li>
+<li><a class="reference internal" href="#author-information">Author Information.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Polygenic Risk Score Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PRSTools</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Introduction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="prstools">
+<h1>PRSTools<a class="headerlink" href="#prstools" title="Link to this heading"></a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading"></a></h2>
+<p>While working on a manuscript focused on benchmarking machine learning
+algorithms for genotype-phenotype prediction, I received feedback
+recommending the inclusion of a broader analysis of PRS methodologies.
+This led me to investigate various PRS calculation tools used in genetic
+research, each of which applies unique approaches and assumptions that
+influence final PRS. These findings were supported by studies like <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/34243982/">this
+one on PubMed</a>, which
+reviews the diversity in PRS tools.</p>
+<p>The calculation of PRS depends on several factors:</p>
+<ul class="simple">
+<li><p><strong>Data Type Compatibility</strong>: Some tools rely on GWAS summary
+statistics, others use genotype data, and some utilize both types.</p></li>
+<li><p><strong>Modeling Differences</strong>: Tools apply different mathematical models,
+impacting PRS interpretation.</p></li>
+<li><p><strong>Reference Panels and Genome Builds</strong>: PRS tools may require
+specific reference panels, which affect compatibility and
+generalizability.</p></li>
+</ul>
+<section id="key-challenges">
+<h3>Key Challenges<a class="headerlink" href="#key-challenges" title="Link to this heading"></a></h3>
+<p>Implementing PRS tools for practical analysis posed several challenges:</p>
+<ul class="simple">
+<li><p><strong>Data Format Incompatibility</strong>: Different tools accept varying input
+formats, making data integration across tools challenging.</p></li>
+<li><p><strong>Limited Cross-Validation Support</strong>: Many tools lack built-in
+cross-validation functionality, essential for robust model
+validation.</p></li>
+<li><p><strong>HPC Scalability Constraints</strong>: Some tools are not optimized for
+high-performance computing (HPC), limiting scalability for analyses
+across multiple phenotypes.</p></li>
+</ul>
+</section>
+</section>
+<section id="repository-overview">
+<h2>Repository Overview<a class="headerlink" href="#repository-overview" title="Link to this heading"></a></h2>
+<p>To address these challenges, we created a new repository that provides a
+unified implementation of PRS calculation tools with enhancements for
+usability in real-world research settings. Key features include:</p>
+<ol class="arabic simple">
+<li><p><strong>Benchmarking</strong>: We benchmarked 46 PRS tools/methods on both binary
+and continuous phenotypes.</p></li>
+<li><p><strong>Comparative Analysis</strong>: Performance, computation time, memory
+consumption, and beta distribution of each tool were compared.</p></li>
+<li><p><strong>Data Transformation</strong>: Documentation on the necessary input data
+transformations ensures compatibility across PRS tools.</p></li>
+<li><p><strong>Parallel Execution</strong>: Tools were implemented for parallel execution
+on HPC systems, enabling simultaneous analyses across multiple
+phenotypes.</p></li>
+<li><p><strong>Detailed Documentation</strong>: Comprehensive end-to-end documentation
+for each PRS tool is available on GitHub.</p></li>
+<li><p><strong>Diverse Dataset Testing</strong>: PRS tools were benchmarked on diverse
+datasets, revealing specific tools’ limitations for certain data
+types.</p></li>
+<li><p><strong>Unified PRS Calculation Pipeline</strong>: A standardized evaluation
+process was applied across all tools.</p></li>
+<li><p><strong>Cross-Validation Implementation</strong>: Five-fold cross-validation was
+incorporated to assess tool performance, an often-missing feature.</p></li>
+<li><p><strong>Hyperparameter Tuning</strong>: PRS-specific hyperparameters (e.g.,
+p-value thresholds, PCA counts) and tool-specific hyperparameters
+were included to optimize PRS accuracy.</p></li>
+</ol>
+<figure class="align-default" id="id41">
+<img alt="Introduction" src="attachment:Introduction.png" />
+<figcaption>
+<p><span class="caption-text">Introduction</span><a class="headerlink" href="#id41" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>In summary, this repository addresses some limitations in current PRS
+tools, providing researchers with an adaptable and efficient solution
+for polygenic risk score calculations. By improving compatibility,
+scalability, and documentation, the repository supports large-scale
+genetic studies and promotes broader use of PRS methodologies in
+research.</p>
+<figure class="align-default" id="id42">
+<img alt="Discussion" src="_images/Discussion.png" />
+<figcaption>
+<p><span class="caption-text">Discussion</span><a class="headerlink" href="#id42" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="prs-tools-included-in-the-analysis">
+<h2>PRS Tools Included in the Analysis.<a class="headerlink" href="#prs-tools-included-in-the-analysis" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>T
+o
+o
+l</p></th>
+<th class="head"><p>P
+y
+t
+h
+o
+n</p></th>
+<th class="head"><p>C
+o
+n
+d
+a
+E
+n
+v
+i
+r
+o
+n
+m
+e
+n
+t</p></th>
+<th class="head"><p>Tool Link</p></th>
+<th class="head"><p>Phe
+not
+ype
+(Bi
+nar
+y/C
+ont
+inu
+ous
+/Bo
+th)</p></th>
+<th class="head"><p>Re
+quires
+Ge
+notype
+data</p></th>
+<th class="head"><p>R
+e
+q
+u
+i
+r
+e
+s
+G
+W
+A
+S
+d
+a
+t
+a</p></th>
+<th class="head"><p>R
+e
+q
+u
+i
+r
+e
+s
+C
+o
+v
+a
+r
+i
+a
+t
+e
+d
+a
+t
+a</p></th>
+<th class="head"><p>Re
+qui
+res
+Ref
+ere
+nce
+d
+ata</p></th>
+<th class="head"><p>De
+pe
+nd
+en
+ce</p></th>
+<th class="head"><p>L
+a
+n
+g
+u
+a
+g
+e</p></th>
+<th class="head"><p>Or
+iginal
+a
+rticle
+DOI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>P
+l
+i
+n
+k</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://www.cog-genomics.org/plink/1.9/score">Plink
+1
+.9</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>C</p></td>
+<td><p><a href="#id1"><span class="problematic" id="id2">`</span></a>10
+.1086/
+519795</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.108
+6/5197
+95&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>P
+R
+S
+i
+c
+e
+-
+2</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p>`
+PRSice-2 &lt;htt
+ps://github.c
+om/choishingw
+an/PRSice&gt;`__</p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>O
+p
+t
+i
+o
+n
+a
+l</p></td>
+<td><p>Opt
+ion
+al,
+but
+re
+com
+men
+ded</p></td>
+<td><p>No</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+<p>a
+n
+d
+R</p>
+</td>
+<td><p><a href="#id3"><span class="problematic" id="id4">`</span></a>10
+.1093/
+gigasc
+ience/
+giz082</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.109
+3/giga
+scienc
+e/giz0
+82&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>G
+C
+T
+A</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://yanglab.westlake.edu.cn/software/gcta/#SBLUP">GCTA
+SBLUP</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://doi.org/10.1007/978-1-62703-447-0_9">10.1
+007/97
+8-1-62
+703-44
+7-0_9</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>D
+B
+S
+L
+M
+M</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/biostat0903/DBSLMM">DBSLMM</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>No
+(opt
+ional,
+can be
+used
+as
+ref
+erence
+panel)</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Opt
+ion
+al,
+but
+re
+com
+men
+ded</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+),
+LD
+pr
+ed
+-2
+(
+He
+ri
+ta
+bi
+li
+ty
+c
+al
+c)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+<p>a
+n
+d
+R</p>
+</td>
+<td><p><a href="#id5"><span class="problematic" id="id6">`</span></a>10
+.1016/
+j.ajhg
+.2020.
+03.013</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.202
+0.03.0
+13&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>l
+a
+s
+s
+o
+s
+u
+m</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://rdrr.io/github/tshmak/lassosum/man/lassosum.html">lasso
+sum</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p><a class="reference external" href="https://doi.org/10.1002/gepi.22050">10.1
+002/ge
+pi.220
+50</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>l
+d
+p
+r
+e
+d
+2
+_
+i
+n
+f</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://privefl.github.io/bigsnpr/articles/LDpred2.html">LDpred2
+inf</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.109
+3/bioi
+nforma
+tics/b
+taa102
+9 &lt;htt
+ps://d
+oi.org
+/10.10
+93/bio
+inform
+atics/
+btaa10
+29&gt;`__</p></td>
+</tr>
+<tr class="row-even"><td><p>l
+d
+p
+r
+e
+d
+2
+_
+g
+r
+i
+d</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://privefl.github.io/bigsnpr/articles/LDpred2.html">LDpred2
+grid</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.109
+3/bioi
+nforma
+tics/b
+taa102
+9 &lt;htt
+ps://d
+oi.org
+/10.10
+93/bio
+inform
+atics/
+btaa10
+29&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>l
+d
+p
+r
+e
+d
+2
+_
+a
+u
+t
+o</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://privefl.github.io/bigsnpr/articles/LDpred2.html">LDpred2
+auto</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.109
+3/bioi
+nforma
+tics/b
+taa102
+9 &lt;htt
+ps://d
+oi.org
+/10.10
+93/bio
+inform
+atics/
+btaa10
+29&gt;`__</p></td>
+</tr>
+<tr class="row-even"><td><p>l
+d
+p
+r
+e
+d
+2
+_
+l
+a
+s
+s
+o
+s
+u
+m
+2</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://privefl.github.io/bigsnpr/articles/LDpred2.html">LDpred2
+lasso
+sum2</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.109
+3/bioi
+nforma
+tics/b
+taa102
+9 &lt;htt
+ps://d
+oi.org
+/10.10
+93/bio
+inform
+atics/
+btaa10
+29&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>l
+d
+p
+r
+e
+d
+-
+f
+u
+n
+c
+t</p></td>
+<td><p>2</p></td>
+<td><p>l
+d
+s
+c
+c</p></td>
+<td><p><a class="reference external" href="https://github.com/carlaml/LDpred-funct">LDpre
+d-funct</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+),
+LD
+pr
+ed
+-2
+(
+He
+ri
+ta
+bi
+li
+ty
+c
+al
+c)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id7"><span class="problematic" id="id8">`</span></a>10
+.1038/
+s41467
+-021-2
+5171-9</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-021
+-25171
+-9&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>S
+B
+a
+y
+e
+s
+R</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://cnsgenomics.com/software/gctb/#Download">SBayesR</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes -
+To
+create
+an LD
+matrix</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+LD
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a href="#id9"><span class="problematic" id="id10">`</span></a>10
+.1038/
+s41588
+-024-0
+1704-y</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s415
+88-024
+-01704
+-y&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>S
+B
+a
+y
+e
+s
+R
+C</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://cnsgenomics.com/software/gctb/#Download">SBayesRC</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes -
+To
+create
+an LD
+matrix</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+LD
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a href="#id11"><span class="problematic" id="id12">`</span></a>10
+.1038/
+s41467
+-019-1
+2653-0</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-019
+-12653
+-0&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>L
+D
+A
+K
+-
+g
+e
+n
+o
+t
+y
+p
+e</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://dougspeed.com/quick-prs/">LDAK-genotyp
+e</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>N
+o</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a href="#id13"><span class="problematic" id="id14">`</span></a>10
+.1038/
+s41467
+-021-2
+4485-y</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-021
+-24485
+-y&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>L
+D
+A
+K
+-
+g
+w
+a
+s</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://dougspeed.com/quick-prs/">LDAK-gwa
+s</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+Co
+rre
+lat
+ion
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a href="#id15"><span class="problematic" id="id16">`</span></a>10
+.1038/
+s41467
+-021-2
+4485-y</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-021
+-24485
+-y&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>P
+R
+S
+c
+s</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/getian107/PRScs">PRScs</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+LD
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id17"><span class="problematic" id="id18">`</span></a>10
+.1038/
+s41467
+-019-0
+9718-5</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-019
+-09718
+-5&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>P
+R
+S
+c
+s
+x</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id45">`PRScsx &lt;
+https://githu
+b.com/getian1
+07/PRScsx&gt;`__</span></a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+LD
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id19"><span class="problematic" id="id20">`</span></a>10
+.1038/
+s41588
+-022-0
+1054-7</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s415
+88-022
+-01054
+-7&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>t
+l
+p
+S
+u
+m</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/jpattee/penRegSum">tlpSum</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.137
+1/jour
+nal.pc
+bi.100
+8271 &lt;
+https:
+//doi.
+org/10
+.1371/
+journa
+l.pcbi
+.10082
+71&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>P
+R
+S
+b
+i
+l
+s</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><dl class="simple">
+<dt><a href="#id21"><span class="problematic" id="id22">`</span></a>PRSbils</dt><dd><p>&lt;<a class="reference external" href="https://git">https://git</a></p>
+</dd>
+</dl>
+<p>hub.com/styvo
+n/PRSbils&gt;`__</p>
+</td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>C
+T
+P
+R</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/wonilchung/CTPR">CTPR</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a href="#id23"><span class="problematic" id="id24">`</span></a>10
+.1038/
+s41467
+-019-0
+8535-0</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-019
+-08535
+-0&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>N
+P
+S</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/sgchun/nps">NPS</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p><a href="#id25"><span class="problematic" id="id26">`</span></a>10
+.1016/
+j.ajhg
+.2020.
+05.004</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.202
+0.05.0
+04&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>S
+D
+P
+R</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/eldronzhou/SDPR.git">SDPR</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes -
+To
+create
+an LD
+matrix</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>`
+10.137
+1/jour
+nal.pg
+en.100
+9697 &lt;
+https:
+//doi.
+org/10
+.1371/
+journa
+l.pgen
+.10096
+97&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>J
+A
+M
+P
+r
+e
+d</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><dl class="simple">
+<dt><a href="#id27"><span class="problematic" id="id28">`</span></a>JAMPred</dt><dd><p>&lt;<a class="reference external" href="https://rdr">https://rdr</a></p>
+</dd>
+</dl>
+<p>r.io/github/p
+jnewcombe/R2B
+GLiMS/man/JAM
+Pred.html&gt;`__</p>
+</td>
+<td><p>B
+oth</p></td>
+<td><p>No</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p><a class="reference external" href="https://doi.org/10.1002/gepi.22245">10.1
+002/ge
+pi.222
+45</a></p></td>
+</tr>
+<tr class="row-even"><td><p>E
+B
+-
+P
+R
+S</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/shuangsong0110/EBPRS">EB-PRS</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>N
+o</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>`
+10.137
+1/jour
+nal.pc
+bi.100
+7565 &lt;
+https:
+//doi.
+org/10
+.1371/
+journa
+l.pcbi
+.10075
+65&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>P
+A
+N
+P
+R
+S</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/cran/PANPRSnext">PANPRS</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes -
+As LD
+matrix</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes
+-
+LD
+Mat
+rix</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p><a class="reference external" href="https://doi.org/10.1080/01621459.2020.1764849">10
+.1080/
+016214
+59.202
+0.1764
+849</a></p></td>
+</tr>
+<tr class="row-even"><td><p>B
+O
+L
+T
+-
+L
+M
+M</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p>`
+BOLT-LMM &lt;htt
+ps://alkesgro
+up.broadinsti
+tute.org/BOLT
+-LMM/BOLT-LMM
+_manual.html#
+x1-470008&gt;`__</p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>N
+o</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://doi.org/10.1038/ng.3190">10.1
+038/ng
+.3190</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>R
+a
+p
+i
+d
+o
+P
+G
+S
+-
+s
+i
+n
+g
+l
+e</p></td>
+<td><p>3</p></td>
+<td><p>A
+d
+v
+a
+n
+c
+e
+R</p></td>
+<td><p><a class="reference external" href="https://github.com/GRealesM/RapidoPGS">RapidoP
+GS-single</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>No</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/btab456">10.1
+093/bi
+oinfor
+matics
+/btab4
+56</a></p></td>
+</tr>
+<tr class="row-even"><td><p>L
+D
+p
+r
+e
+d
+-
+g
+i
+b
+b
+s</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p>`
+LDpred-gibbs
+&lt;<a class="reference external" href="https://gith">https://gith</a>
+ub.com/bvilhj
+al/ldpred&gt;`__</p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id29"><span class="problematic" id="id30">`</span></a>10
+.1016/
+j.ajhg
+.2015.
+09.001</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.201
+5.09.0
+01&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>L
+D
+p
+r
+e
+d
+-
+p
++
+t</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/bvilhjal/ldpred">LDpred-p+t</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id31"><span class="problematic" id="id32">`</span></a>10
+.1016/
+j.ajhg
+.2015.
+09.001</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.201
+5.09.0
+01&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>L
+D
+p
+r
+e
+d
+-
+i
+n
+f</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/bvilhjal/ldpred">LDpred-inf</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id33"><span class="problematic" id="id34">`</span></a>10
+.1016/
+j.ajhg
+.2015.
+09.001</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.201
+5.09.0
+01&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>L
+D
+p
+r
+e
+d
+-
+f
+a
+s
+t</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/bvilhjal/ldpred">LDpred-fast</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id35"><span class="problematic" id="id36">`</span></a>10
+.1016/
+j.ajhg
+.2015.
+09.001</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.101
+6/j.aj
+hg.201
+5.09.0
+01&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>A
+n
+n
+o
+-
+P
+r
+e
+d</p></td>
+<td><p>2</p></td>
+<td><p>l
+d
+s
+c
+c</p></td>
+<td><p><a class="reference external" href="https://github.com/yiminghu/AnnoPred">Anno-Pred</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>`
+10.137
+1/jour
+nal.pc
+bi.100
+5589 &lt;
+https:
+//doi.
+org/10
+.1371/
+journa
+l.pcbi
+.10055
+89&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>s
+m
+t
+p
+r
+e
+d
+-
+w
+M
+t
+O
+L
+S</p></td>
+<td><p>2</p></td>
+<td><p>l
+d
+s
+c
+c</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id46">`smt
+pred-wMtOLS &lt;
+https://githu
+b.com/uqrmaie
+1/smtpred&gt;`__</span></a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id37"><span class="problematic" id="id38">`</span></a>10
+.1038/
+s41467
+-017-0
+2769-6</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s414
+67-017
+-02769
+-6&gt;`__</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>s
+m
+t
+p
+r
+e
+d
+-
+w
+M
+t
+S
+B
+L
+U
+P</p></td>
+<td><p>2</p></td>
+<td><p>l
+d
+s
+c
+c</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id47">`GitHub &lt;
+https://githu
+b.com/uqrmaie
+1/smtpred&gt;`__</span></a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>https:
+//doi.
+org/10
+.1038/
+s41467
+-017-0
+2769-6</p></td>
+</tr>
+<tr class="row-odd"><td><p>C
+l
+u
+m
+p
+i
+n
+g
+a
+n
+d
+T
+h
+r
+e
+s
+h
+o
+l
+d
+i
+n
+g
+)</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>v
+i
+p
+r
+s
+-
+s
+i
+m
+p
+l
+e</p></td>
+<td><p>3</p></td>
+<td><p>v
+i
+p
+r
+s
+_
+e
+n
+v</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id48">`GitHub &lt;
+https://githu
+b.com/shz9/vi
+prs-paper&gt;`__</span></a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>https:
+//doi.
+org/10
+.1016/
+j.ajhg
+.2023.
+03.009</p></td>
+</tr>
+<tr class="row-odd"><td><p>v
+i
+p
+r
+s
+-
+g
+r
+i
+d</p></td>
+<td><p>3</p></td>
+<td><p>v
+i
+p
+r
+s
+_
+e
+n
+v</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id49">`GitHub &lt;
+https://githu
+b.com/shz9/vi
+prs-paper&gt;`__</span></a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>https:
+//doi.
+org/10
+.1016/
+j.ajhg
+.2023.
+03.009</p></td>
+</tr>
+<tr class="row-even"><td><p>H
+A
+I
+L</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://nbviewer.org/github/ddbj/imputation-server-wf/blob/main/Notebooks/hail-prs-tutorial.ipynb">Noteboo
+k</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>https:
+//doi.
+org/10
+.1038/
+s41588
+-023-0
+1648-9</p></td>
+</tr>
+<tr class="row-odd"><td><p>G
+E
+M
+M
+A
+-
+L
+M</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/genetics-statistics/GEMMA">GitH
+ub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>h
+ttps:/
+/doi.o
+rg/10.
+1038/n
+g.2310</p></td>
+</tr>
+<tr class="row-even"><td><p>G
+E
+M
+M
+A
+-
+L
+L
+M</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/genetics-statistics/GEMMA">GitH
+ub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>h
+ttps:/
+/doi.o
+rg/10.
+1038/n
+g.2310</p></td>
+</tr>
+<tr class="row-odd"><td><p>G
+E
+M
+M
+A
+_
+B
+S
+L
+M
+M</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/genetics-statistics/GEMMA">GitH
+ub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>h
+ttps:/
+/doi.o
+rg/10.
+1038/n
+g.2310</p></td>
+</tr>
+<tr class="row-even"><td><p>M
+T
+G
+2</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://sites.google.com/view/s-hong-lee-homepage/mtg2">Hom
+epage</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>N
+o</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/btw012">10
+.1093/
+bioinf
+ormati
+cs/btw
+012</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>S
+C
+T</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://privefl.github.io/bigsnpr/articles/SCT.html">bigSNP</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>https:
+//doi.
+org/10
+.1016/
+j.ajhg
+.2019.
+11.001</p></td>
+</tr>
+<tr class="row-even"><td><p>X
+P
+-
+B
+L
+U
+P</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/tanglab/XP-BLUP">GitHub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>N
+o</p></td>
+<td><p>N
+o</p></td>
+<td><p>No</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>B
+a
+s
+h</p></td>
+<td><p>`
+10.580
+8/gi.2
+1053 &lt;
+https:
+//doi.
+org/10
+.5808/
+gi.210
+53&gt;`__</p></td>
+</tr>
+<tr class="row-odd"><td><p>C
+T
+S
+L
+E
+B</p></td>
+<td><p>3</p></td>
+<td><p>g
+e
+n
+e
+t
+i
+c
+s</p></td>
+<td><p><a class="reference external" href="https://github.com/andrewhaoyu/CTSLEB">GitHub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>R</p></td>
+<td><p>https:
+//doi.
+org/10
+.1038/
+s41588
+-023-0
+1501-z</p></td>
+</tr>
+<tr class="row-even"><td><p>P
+o
+l
+y
+P
+r
+e
+d</p></td>
+<td><p>3</p></td>
+<td><p>p
+o
+l
+y
+f
+u
+n</p></td>
+<td><p><a class="reference external" href="https://github.com/omerwe/polyfun/wiki/6.-Trans-ethnic-polygenic-risk-prediction-with-PolyPred">Polyfun
+Wiki</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p><a href="#id39"><span class="problematic" id="id40">`</span></a>10
+.1038/
+s41588
+-022-0
+1036-9</p>
+<blockquote>
+<div><p>&lt;http</p>
+</div></blockquote>
+<p>s://do
+i.org/
+10.103
+8/s415
+88-022
+-01036
+-9&gt;`__</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>P
+l
+e
+i
+o
+-
+P
+r
+e
+d</p></td>
+<td><p>2</p></td>
+<td><p>l
+d
+s
+c
+c</p></td>
+<td><p><a class="reference external" href="https://github.com/yiminghu/PleioPred">GitHub</a></p></td>
+<td><p>B
+oth</p></td>
+<td><p>Yes</p></td>
+<td><p>Y
+e
+s</p></td>
+<td><p>N
+o</p></td>
+<td><p>Yes</p></td>
+<td><p>P
+li
+nk
+(P
+RS
+ca
+lc
+ul
+at
+io
+n)</p></td>
+<td><p>P
+y
+t
+h
+o
+n</p></td>
+<td><p>`
+10.137
+1/jour
+nal.pg
+en.100
+6836 &lt;
+https:
+//doi.
+org/10
+.1371/
+journa
+l.pgen
+.10068
+36&gt;`__</p></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>advanceR Environment</strong></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/advanceR/environment.yml">Download
+environment.yml</a></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/advanceR/replication_instructions.txt">Download
+replication_instructions.txt</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>genetics Environment</strong></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/genetics/environment.yml">Download
+environment.yml</a></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/genetics/replication_instructions.txt">Download
+replication_instructions.txt</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>ldscc Environment</strong></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/ldscc/environment.yml">Download
+environment.yml</a></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/ldscc/replication_instructions.txt">Download
+replication_instructions.txt</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>polyfun Environment</strong></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/polyfun/environment.yml">Download
+environment.yml</a></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/polyfun/replication_instructions.txt">Download
+replication_instructions.txt</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>viprs_env Environment</strong></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/viprs_env/environment.yml">Download
+environment.yml</a></div>
+<div class="line"><a class="reference external" href="./CondaEnvironmentsForPRSTools/viprs_env/replication_instructions.txt">Download
+replication_instructions.txt</a></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
+<figure class="align-default" id="id43">
+<img alt="image-2.png" src="attachment:image-2.png" />
+<figcaption>
+<p><span class="caption-text">image-2.png</span><a class="headerlink" href="#id43" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="related-projects">
+<h2>Related Projects.<a class="headerlink" href="#related-projects" title="Link to this heading"></a></h2>
+<p>Here are some of the related projects that would be very helpful to
+researchers working on genetics, genotype-phenotype prediction, and risk
+scores.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><ul class="simple">
+<li></li>
+</ul>
+<p><em>Project
+Title*</em></p>
+</th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>GitHub
+Link</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>G
+WASPoker
+forPRS</strong></p></td>
+<td><p>A meta-analysis and parsing tool designed
+for efficient polygenic risk score
+calculation using GWAS summary statistic
+files. This tool scans the GWAS Catalog,
+downloads metadata, parses GWAS files, and
+extracts necessary columns for PRS
+calculation, including DOI and citation
+details, helping to streamline the PRS
+calculation process.</p></td>
+<td><p><a class="reference external" href="https://github.com/MuhammadMuneeb007/GWASPokerforPRS">GitHub
+Link</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ide
+ntifying
+Genes
+As
+sociated
+with
+Ph
+enotypes
+Using
+Machine
+and Deep
+Le
+arning</strong></p></td>
+<td><p>A project focused on leveraging machine and
+deep learning to identify genes associated
+with various phenotypes. This approach aims
+to uncover genetic associations that could
+enhance our understanding of
+phenotype-genotype relationships, using
+advanced computational techniques.</p></td>
+<td><p><a href="#id44"><span class="problematic" id="id50">`GitHub
+Link &lt;
+https://g
+ithub.com
+/Muhammad
+Muneeb007
+/Identify
+ing-genes
+-associat
+ed-with-3
+0-phenoty
+pes-using
+-machine-
+deep-lear
+ning-&gt;`__</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Benc
+hmarking
+80
+OpenSNP
+Ph
+enotypes
+Using
+Deep
+Learning
+Al
+gorithms
+and PRS
+Tools</strong></p></td>
+<td><p>This project benchmarks 80 phenotypes from
+OpenSNP using deep learning algorithms and
+PRS tools. It aims to evaluate performance
+across various methods, providing insights
+into the effectiveness of different
+algorithms for PRS computation and phenotype
+prediction.</p></td>
+<td><p><a class="reference external" href="https://github.com/MuhammadMuneeb007/Benchmarking-80-OpenSNP-phenotypes-using-deep-learning-algorithms-and-polygenic-risk-scores-tools">GitHub
+Link</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Heri
+tability
+Tools</strong></p></td>
+<td><p>A collection of tools for calculating
+heritability using diverse statistical
+methods and datasets, including GWAS summary
+statistics, genotype data, covariates, PCA,
+and reference panels. This project serves as
+a resource for researchers to estimate
+heritability under different modeling
+assumptions and statistical approaches.</p></td>
+<td><p><a class="reference external" href="https://github.com/MuhammadMuneeb007/heritability">GitHub
+Link</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="author-information">
+<h2>Author Information.<a class="headerlink" href="#author-information" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Name</strong>: Muhammad Muneeb</p></li>
+<li><p><strong>Affiliation</strong>: The University of Queensland</p></li>
+<li><p><strong>Email</strong>: <a class="reference external" href="mailto:m&#46;muneeb&#37;&#52;&#48;uq&#46;edu&#46;au">m<span>&#46;</span>muneeb<span>&#64;</span>uq<span>&#46;</span>edu<span>&#46;</span>au</a></p></li>
+<li><p><strong>Gmail</strong>: <a class="reference external" href="mailto:muneebsiddique007&#37;&#52;&#48;gmail&#46;com">muneebsiddique007<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+<li><p><strong>GitHub</strong>: <a class="reference external" href="https://github.com/MuhammadMuneeb007/">GitHub
+Profile</a></p></li>
+<li><p><strong>Google Scholar</strong>: <a class="reference external" href="https://scholar.google.com/citations?hl=en&amp;user=X0xdltIAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Google
+Scholar</a></p></li>
+<li><p><strong>ResearchGate</strong>: <a class="reference external" href="https://www.researchgate.net/profile/Muhammad-Muneeb-5">ResearchGate
+Profile</a></p></li>
+<li><p><strong>Supervisor</strong>: <a class="reference external" href="https://scmb.uq.edu.au/profile/8654/david-ascher">David
+Ascher</a></p></li>
+<li><p><strong>Group Webpage</strong>: <a class="reference external" href="https://biosig.lab.uq.edu.au/">BioSig Lab</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Muhammad Muneeb.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
