@@ -66,7 +66,7 @@ usability in real-world research settings. Key features include:
    p-value thresholds, PCA counts) and tool-specific hyperparameters
    were included to optimize PRS accuracy.
 
-.. figure:: attachment:Introduction.png
+.. figure:: Introduction.png
    :alt: Introduction
 
    Introduction
@@ -787,33 +787,33 @@ PRS Tools Included in the Analysis.
 
 -  | **advanceR Environment**
    | `Download
-     environment.yml <./CondaEnvironmentsForPRSTools/advanceR/environment.yml>`__
+     environment.yml <CondaEnvironmentsForPRSTools/advanceR/environment.yml>`__
    | `Download
-     replication_instructions.txt <./CondaEnvironmentsForPRSTools/advanceR/replication_instructions.txt>`__
+     replication_instructions.txt <CondaEnvironmentsForPRSTools/advanceR/replication_instructions.txt>`__
 
 -  | **genetics Environment**
    | `Download
-     environment.yml <./CondaEnvironmentsForPRSTools/genetics/environment.yml>`__
+     environment.yml <CondaEnvironmentsForPRSTools/genetics/environment.yml>`__
    | `Download
-     replication_instructions.txt <./CondaEnvironmentsForPRSTools/genetics/replication_instructions.txt>`__
+     replication_instructions.txt <CondaEnvironmentsForPRSTools/genetics/replication_instructions.txt>`__
 
 -  | **ldscc Environment**
    | `Download
-     environment.yml <./CondaEnvironmentsForPRSTools/ldscc/environment.yml>`__
+     environment.yml <CondaEnvironmentsForPRSTools/ldscc/environment.yml>`__
    | `Download
-     replication_instructions.txt <./CondaEnvironmentsForPRSTools/ldscc/replication_instructions.txt>`__
+     replication_instructions.txt <CondaEnvironmentsForPRSTools/ldscc/replication_instructions.txt>`__
 
 -  | **polyfun Environment**
    | `Download
-     environment.yml <./CondaEnvironmentsForPRSTools/polyfun/environment.yml>`__
+     environment.yml <CondaEnvironmentsForPRSTools/polyfun/environment.yml>`__
    | `Download
-     replication_instructions.txt <./CondaEnvironmentsForPRSTools/polyfun/replication_instructions.txt>`__
+     replication_instructions.txt <CondaEnvironmentsForPRSTools/polyfun/replication_instructions.txt>`__
 
 -  | **viprs_env Environment**
    | `Download
-     environment.yml <./CondaEnvironmentsForPRSTools/viprs_env/environment.yml>`__
+     environment.yml <CondaEnvironmentsForPRSTools/viprs_env/environment.yml>`__
    | `Download
-     replication_instructions.txt <./CondaEnvironmentsForPRSTools/viprs_env/replication_instructions.txt>`__
+     replication_instructions.txt <CondaEnvironmentsForPRSTools/viprs_env/replication_instructions.txt>`__
 
 Results
 -------
